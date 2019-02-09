@@ -6,18 +6,20 @@ import {withFauxDOM} from 'react-faux-dom'
 
 class Line extends Component {
 
-    componentDidMount() {
-       const faux = this.props.connectFauxDOM('div', 'chart');
+   componentDidMount() {
+      const faux = this.props.connectFauxDOM('div', 'chart');
 
-       // D3 Code to create the chart
-       // using faux as container
+      // D3 Code to create the chart
+      // using faux as container
 
-       const data = [4, 8, 15, 16, 23, 42];
+      const data = [4, 8, 15, 16, 23, 42];
 
-       const body = d3.select(faux);
-       const div = body.append("div");
-       div.html("Hello, world!");
-    }
+      const body = d3.select(faux);
+      const div = body.append("div");
+      div.html("Hello, world!");
+
+
+   }
 
    //     const dataset = [
    //      [ 34,     78 ],
