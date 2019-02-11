@@ -20,33 +20,64 @@ class Line extends Component {
       {name: "Kwon",     value: 42}
     ];
 
-    const width = 420;
-    const barHeight = 20;
+    const width = 960;
+    const height = 500;
 
-    const x = d3.scaleLinear()
-          .domain([0, d3.max(data, d => d.value )])
-          .range([0, width]);
-
+    const y = d3.scaleLinear()
+          .domain([0, d3.max(data, d => d.value)])
+          .range([height, 0]);
+    
     const chart = d3.select(faux)
           .append('svg')
           .attr('class', 'chart')
           .attr('width', width)
-          .attr('height', barHeight * data.length)
+          .attr('height', height)
+
+    const barWidth = width / data.length;
 
     const bar = chart.selectAll('g')
-            .data(data)
-          .enter().append('g')
-            .attr('transform', (d, i) => `translate(0,${i * barHeight})`);
+          .data(data)
+        .enter().append('g')
+          .attr('transform', (d, i) => `translate(${i * barWidth})`);
 
     bar.append('rect')
-        .attr('width', d => x(d.value))
-        .attr('height', barHeight - 1);
+        .attr('y', (d) => y(d.value))
+        .attr('height', d => height - y(d.value))
+        .attr('width', barWidth - 1);
 
     bar.append('text')
-        .attr('x', d => x(d.value) - 8)
-        .attr('y', barHeight / 2)
-        .attr('dy', '.35em')
-        .text(d => d.value);
+        .attr('x', barWidth / 2)
+        .attr('y', d => y(d.value) + 3)
+        .attr('dy', '.75em')
+        .attr(d => d.value)
+
+    // const width = 420;
+    // const barHeight = 20;
+
+    // const x = d3.scaleLinear()
+    //       .domain([0, d3.max(data, d => d.value )])
+    //       .range([0, width]);
+
+    // const chart = d3.select(faux)
+    //       .append('svg')
+    //       .attr('class', 'chart')
+    //       .attr('width', width)
+    //       .attr('height', barHeight * data.length)
+
+    // const bar = chart.selectAll('g')
+    //         .data(data)
+    //       .enter().append('g')
+    //         .attr('transform', (d, i) => `translate(0,${i * barHeight})`);
+
+    // bar.append('rect')
+    //     .attr('width', d => x(d.value))
+    //     .attr('height', barHeight - 1);
+
+    // bar.append('text')
+    //     .attr('x', d => x(d.value) - 8)
+    //     .attr('y', barHeight / 2)
+    //     .attr('dy', '.35em')
+    //     .text(d => d.value);
           
 
   }
